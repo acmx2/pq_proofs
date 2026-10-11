@@ -1,0 +1,20 @@
+# Prerequisites & Temporary System Cache Fields
+.DS_Store
+Thumdbs.db
+
+# Compilation transient build variables
+build/
+bin/
+lib/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+
+# LaTeX transient processing helper files
+*.aux
+*.log
+*.toc
+*.synctex.gz
+*.out
+

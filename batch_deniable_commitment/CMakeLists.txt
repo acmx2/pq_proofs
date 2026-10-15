@@ -2,7 +2,7 @@
 # Copyright (c) 2026 Anton A. Sokolov (acmxddk@gmail.com)
 
 cmake_minimum_required(VERSION 3.16)
-project(BatchQuintetCommitmentSuite VERSION 1.0.0 LANGUAGES CXX)
+project(BatchDeniableCommitmentSuite VERSION 1.0.0 LANGUAGES CXX)
 
 # Enforce strict modern C++20 language layout invariants parameters
 set(CMAKE_CXX_STANDARD 20)
@@ -27,8 +27,6 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     )
 endif()
 
-# FIXED: Removed all OpenSSL discovery directives to preserve zero-dependency isolation
-
 # Declare corporate workspace global directory paths definitions
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -45,14 +43,28 @@ set(SUITE_SOURCES
     ${SRC_DIR}/verifier.cpp
 )
 
-# Define the primary test flight sequence executable build target
+# ----------------=========================================================
+# EXPORT THE DEFINITIVE STATIC LIBRARY SUITE
+# ----------------------------------------------------------------=========
+# Compiles out libbatchdeniablecommitment.a archive binary on disk
+add_library(batchdeniablecommitment STATIC ${SUITE_SOURCES})
+
+# Set the explicit output file name format target to libbatchdeniablecommitment.a
+set_target_properties(batchdeniablecommitment PROPERTIES OUTPUT_NAME "batchdeniablecommitment")
+
+# PUBLIC means any target linking against this module automatically inherits this include path
+target_include_directories(batchdeniablecommitment PUBLIC ${INCLUDE_DIR})
+
+# ----------------=========================================================
+# LOCAL EXECUTABLE TEST DEFINITION
+# ----------------------------------------------------------------=========
 add_executable(batch_test_suite
-    ${SUITE_SOURCES}
     ${TESTS_DIR}/metrics_aggregator.cpp
     ${TESTS_DIR}/test_main.cpp
 )
 
-# Configure include directories targets mappings
-target_include_directories(batch_test_suite PRIVATE ${INCLUDE_DIR} ${TESTS_DIR})
+target_include_directories(batch_test_suite PRIVATE ${TESTS_DIR})
 
+# Link against the static library target natively
+target_link_libraries(batch_test_suite PRIVATE batchdeniablecommitment)
 

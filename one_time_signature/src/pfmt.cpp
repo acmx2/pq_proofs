@@ -2,7 +2,7 @@
 // Copyright (c) 2026 Anton A. Sokolov (acmxddk@gmail.com)
 
 #include "pfmt.hpp"
-#include "ots_procedures.hpp"
+#include "ots_procedures.hpp" 
 #include <stdexcept>
 
 namespace OtSignature {

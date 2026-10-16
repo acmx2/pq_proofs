@@ -10,7 +10,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # ----------------=========================================================
 # CROSS-DIRECTORY DEPENDENCY RESOLUTION
 # ----------------------------------------------------------------=========
-# Cross-directory property propagation consuming the autonomous 'batch_deniable_commitment' library
 if(NOT TARGET batchdeniablecommitment)
     add_subdirectory(
         ${CMAKE_CURRENT_SOURCE_DIR}/../batch_deniable_commitment 
@@ -24,11 +23,11 @@ endif()
 add_executable(ots_test_runner
     src/pfmt.cpp
     src/ots_procedures.cpp
+    src/signer.cpp
+    src/ots_verifier.cpp
     tests/main_test.cpp
 )
 
 target_include_directories(ots_test_runner PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
-
-# Links 'libbatchdeniablecommitment.a' and inherits public headers seamlessly
 target_link_libraries(ots_test_runner PRIVATE batchdeniablecommitment)
 

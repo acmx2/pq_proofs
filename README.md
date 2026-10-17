@@ -26,12 +26,12 @@ Given a public commitment `Cmt` and a subsequently presented pair of 256-bit sca
 *Note on Reusability:* This commitment verification process is strictly **one-time**. Running subsequent verification passes with a different arbitrary scalar in the pair will trivially reveal which of the two scalars was actually committed to.
 
 ### Batch Deniable Commitment Suite
-For a fixed `V`, given a public commitment `Cmt` and subsequently presented `V` pairs of 256-bit scalars, the Prover convinces the Verifier with absolute zero-knowledge deniability and 128-bit post-quantum security that, for each pair, one of its two scalars was originally bound to `Cmt`, while the other remains completely arbitrary. 
+For a fixed $V$, given a public commitment `Cmt` and subsequently presented $V$ pairs of 256-bit scalars, the Prover convinces the Verifier with absolute zero-knowledge deniability and 128-bit post-quantum security that, for each pair, one of its two scalars was originally bound to `Cmt`, while the other remains completely arbitrary. 
 
 ### One-Time Linkable Ring Signature Suite
 The one-time ring signature engine (OTS) leverages the properties of the Batch Deniable Commitment Suite (BDCS) paired with a Partially Fixed Merkle Tree (PFMT) structure to sign a message anonymously with 128-bit post-quantum security.
 
-The public ring contains exactly \(2^V - 1\) public keys. To construct a balanced \(2^V\) leaf spectrum layer for the tree, a cryptographic anchor derived directly from the message and the public linkable identity tag is appended to the end of the public key ring vector. The signer's exact operational position inside this ring is deterministically derived from its private seeds during public key generation, allowing the signing logic to map sibling nodes on-the-fly and fold the tree bottom-up with clear O(1) indexing lookup complexity.
+The public ring contains exactly $2^V - 1$ public keys. To construct a balanced $2^V$ leaf spectrum layer, a cryptographic anchor derived directly from the message and the public linkable identity tag is appended to the end of the public key ring vector. The signer's exact operational position inside this ring is deterministically derived from its private seeds during public key generation, allowing the signing logic to map sibling nodes on-the-fly and fold the tree bottom-up with clear O(1) indexing lookup complexity.
 
 For $V \in [4 \dots 16]$ (corresponding to ring sizes from $15$ to $65,535$), the Proof-of-Concept OTS implementation exhibits a total signature size in the range of $[12\text{ KB} \dots 47\text{ KB}]$. Both signature generation (signing) and verification execute within a $[100\text{ ms} \dots 2000\text{ ms}]$ time frame.
 
@@ -41,7 +41,7 @@ For $V \in [4 \dots 16]$ (corresponding to ring sizes from $15$ to $65,535$), th
 
 1. **`deniable_commitment/`**: The initial standalone 1-out-of-2 plain scalar bit-commitment prototype. It demonstrates the core mechanics of symmetric stream collisions and "oblivious" bit tracking.
 2. **`batch_deniable_commitment/`**: The definitive, high-throughput engine. It aggregates V parallel instances into a single global batch array `B`, optimizing bandwidth allocation through a multi-phase greedy optimization selection layer, GGM hierarchical key derivation, and a nested prefix cascade leaf structure.
-3. **`one_time_signature/`**: The ring signature framework. It applies the batch commitment engine to an expanded verification ring space to build a linkable, post-quantum sound anonymous signature routine that folds leaf spectrum nodes into a unified parent root.
+3. **`one_time_signature/`**: The ring signature framework. It applies the batch commitment engine to an expanded verification ring space to build a linkable, post-quantum sound anonymous signature.
 
 ---
 

@@ -11,7 +11,10 @@
 namespace OtSignature {
 namespace CryptoEngine {
 
+    // Evaluates a standard NIST-compliant SHA-512 over an arbitrary byte array.
     Hash512 sha512(const std::vector<Byte>& buffer);
+
+    // Computes bitwise pointwise XOR masking over 512-bit state structures.
     Scalar512 computeXor512(const Scalar512& a, const Scalar512& b);
 
 } // namespace CryptoEngine

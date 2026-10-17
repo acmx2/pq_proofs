@@ -13,7 +13,7 @@ namespace BatchDeniableCommitment {
 // Global Compile-Time Topological Parameters & Strategy Macro Switch
 #define SELECTIONENGINE(pool, xorMap) runSelectionEngine(pool, xorMap)
 
-constexpr std::size_t V = 16;           // Number of parallel scalar pairs (V in [4 ... 20])
+constexpr std::size_t V = 4;           // Number of parallel scalar pairs (V in [4 ... 20])
 constexpr std::size_t D = 15;           // Target balanced binary tree depth (14 or 15)
 constexpr std::size_t C = 9;            // Count of lower leaf-cascade floors
 
